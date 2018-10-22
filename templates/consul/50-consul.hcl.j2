@@ -1,0 +1,6 @@
+node_name  = "{{ ansible_hostname }}"
+datacenter = "{{ consul['datacenter'] | default('dc1') }}"
+domain     = "{{ consul['domain'] | default('consul.') }}""
+data_dir   = "{{ base_dir['data'] }}/{{ bin_name['consul'] }}"
+ui         = {{ consul['ui'] | default(true) | bool | lower }}
+retry_join = {{ bootstrap['addresses'] | default('0.0.0.0') | to_json}}

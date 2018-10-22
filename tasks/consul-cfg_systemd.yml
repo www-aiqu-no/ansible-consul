@@ -1,0 +1,51 @@
+---
+
+- name: consul | create service folders
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "bin_name['consul']"
+    group: "bin_name['consul']"
+    mode: 0755
+  loop:
+  - "{{ base_dir['logs'] }}/{{ bin_name['consul'] }}"
+  - "{{ base_dir['data'] }}/{{ bin_name['consul'] }}"
+
+- name: consul | generate service configurationfile
+  become: true
+  notify:
+  - reload_systemd_daemon
+  - restart_unit_consul
+  template:
+    dest: "{{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d/{{ item }}"
+    src: "{{ bin_name['consul'] }}/{{ item }}.j2"
+    owner: "{{ bin_name['consul'] }}"
+    group: "{{ bin_name['consul'] }}"
+    mode: 0640
+  loop:
+  - 50-consul.hcl
+
+- name: consul | create systemd unit
+  become: true
+  notify:
+  - reload_systemd_daemon
+  - restart_unit_consul
+  template:
+    dest: "{{ base_dir['systemd'] }}/{{ item }}"
+    src: "{{ bin_name['consul'] }}/systemd/{{ item }}.j2"
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+  - consul.service
+
+- name: consul | start and enable unit
+  become: true
+  notify:
+  - reload_systemd_daemon
+  systemd:
+    name: consul
+    state: started
+    enabled: yes
+    masked: no

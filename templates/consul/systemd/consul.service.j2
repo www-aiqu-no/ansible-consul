@@ -1,0 +1,20 @@
+[Unit]
+Description=Consul
+Documentation=https://consul.io/docs/
+Requires=network-online.target
+After=network-online.target
+ConditionFileNotEmpty={{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d/consul.hcl
+
+[Service]
+KillMode=process
+KillSignal=SIGINT
+ExecStart={{ base_dir['binaries'] }}/{{ bin_name['consul'] }} agent -config-dir {{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d/
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=2
+StartLimitBurst=3
+StartLimitInterval=10
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

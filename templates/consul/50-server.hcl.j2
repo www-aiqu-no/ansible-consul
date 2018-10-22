@@ -1,0 +1,4 @@
+{% if consul['server'] %}
+server           = {{ consul['server'] | bool | lower }}
+bootstrap_expect = {{ bootstrap['expect'] | int }}
+{% endif %}

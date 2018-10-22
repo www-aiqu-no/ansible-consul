@@ -1,0 +1,45 @@
+---
+#  Required Inputs
+# ============================================
+
+consul:
+  version: "1.3.0"
+  datacenter: "dc1"
+  domain: "contoso"
+  server: true
+  ui: true
+
+bootstrap:
+  expect: "3"
+  addresses:
+  - "10.0.0.1"
+  - "10.0.0.2"
+  - "10.0.0.3"
+
+# Optional (recommended) Inputs
+# ============================================
+
+##
+#  Generate encryption key
+#    - local agent: consul keygen
+#    - docker: docker run -it --rm consul:latest consul keygen
+encryption:
+  enabled: false
+  key: "SomeSecretKey"
+
+##
+#  Generate ACL Master Token:
+#    - local: uuidgen
+#    - docker: docker run -it --rm alpine:latest ash -c \
+#        "apk --no-cache add util-linux; uuidgen" \
+#        | awk END{print}
+acl:
+  enabled: false
+  datacenter: "dc1"
+  master_token: "SomeSecretToken"
+  agent_token: "GeneratedFromMaster"
+
+##
+# Not configured
+tls:
+  enabled: false

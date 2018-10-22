@@ -1,0 +1,29 @@
+---
+
+- name: consul | check if file is downloaded
+  become: false
+  stat:
+    path: "{{ base_dir['downloads'] }}/{{ package_name_consul }}.zip"
+  register: package_status_consul
+
+- name: consul | download package
+  block:
+
+  - name: consul | get package checksum
+    run_once: true
+    become: false
+    local_action: shell curl -s "{{ checksum_url_consul }}" | grep -i "{{ package_name_consul }}.zip" | awk '{print $1}'
+    args:
+      warn: false
+    register: sha256_consul
+
+  - name: consul | download package
+    become: false
+    get_url:
+      url: "{{ package_url_consul }}"
+      dest: "{{ base_dir['downloads'] }}"
+      checksum: "sha256:{{ sha256_consul['stdout'] }}"
+      validate_certs: false
+    register: download_status_consul
+
+  when: not package_status_consul['stat']['exists']
