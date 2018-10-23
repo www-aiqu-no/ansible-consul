@@ -3,7 +3,7 @@ Description=Consul
 Documentation=https://consul.io/docs/
 Requires=network-online.target
 After=network-online.target
-ConditionFileNotEmpty={{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d/consul.hcl
+ConditionFileNotEmpty={{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d/50-consul.hcl
 
 [Service]
 KillMode=process
