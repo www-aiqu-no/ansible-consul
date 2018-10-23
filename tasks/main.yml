@@ -15,7 +15,7 @@
     tags: install
 
   - block:
-    tags: configure
+    #tags: configure
 
     - include: consul-cfg_user.yml
       tags: required
