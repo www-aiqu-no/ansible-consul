@@ -8,9 +8,15 @@ ConditionFileNotEmpty={{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d/50-co
 [Service]
 User={{ bin_name['consul'] }}
 Group={{ bin_name['consul'] }}
+PermissionsStartOnly=true
+ExecStartPre=-/bin/mkdir -p {{ base_dir['binaries'] }}/{{ bin_name['consul'] }}
+ExecStartPre=/bin/chown -R {{ bin_name['consul'] }}:{{ bin_name['consul'] }} {{ base_dir['binaries'] }}/{{ bin_name['consul'] }}
+PidFile={{ base_dir['binaries'] }}/{{ bin_name['consul'] }}/{{ bin_name['consul'] }}.pid
 KillMode=process
 KillSignal=SIGINT
-ExecStart={{ base_dir['binaries'] }}/{{ bin_name['consul'] }} agent -config-dir {{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d/
+ExecStart={{ base_dir['binaries'] }}/{{ bin_name['consul'] }} agent \
+    -config-dir={{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d \
+    -pid-file={{ base_dir['binaries'] }}/{{ bin_name['consul'] }}/{{ bin_name['consul'] }}.pid
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=on-failure
 RestartSec=2

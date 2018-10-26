@@ -22,10 +22,3 @@
     src: "{{ base_dir['packages'] }}/{{ bin_name['consul'] }}/{{ consul['version'] }}/{{ bin_name['consul'] }}"
     path: "{{ base_dir['binaries'] }}/{{ bin_name['consul'] }}"
     state: link
-
-#- name: consul | enable autocomplete
-#  become: true
-#  command: "{{ item }}"
-#  loop:
-#  - "{{ base_dir['binaries'] }}/{{ bin_name }} -autocomplete-install"
-#  - "complete -C {{ base_dir['binaries'] }}/{{ bin_name }} consul"

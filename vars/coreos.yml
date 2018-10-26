@@ -3,10 +3,11 @@
 ## systemd/CoreOS Specific parameters
 
 base_dir:
-  downloads: '/tmp'
-  packages: '/opt'
   binaries: '/opt/bin'
   configs: '/etc'
-  systemd: '/etc/systemd/system'
   data: '/var/lib'
+  downloads: '/tmp'
   logs: '/var/log'
+  packages: '/opt'
+  pid: '/var/run'
+  systemd: '/etc/systemd/system'
