@@ -6,6 +6,8 @@ After=network-online.target
 ConditionFileNotEmpty={{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d/50-consul.hcl
 
 [Service]
+User={{ bin_name['consul'] }}
+Group={{ bin_name['consul'] }}
 KillMode=process
 KillSignal=SIGINT
 ExecStart={{ base_dir['binaries'] }}/{{ bin_name['consul'] }} agent -config-dir {{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d/
