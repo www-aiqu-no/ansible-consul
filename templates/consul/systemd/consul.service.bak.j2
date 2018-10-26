@@ -8,8 +8,9 @@ ConditionFileNotEmpty={{ base_dir['configs'] }}/{{ bin_name['consul'] }}.d/50-co
 [Service]
 User={{ bin_name['consul'] }}
 Group={{ bin_name['consul'] }}
-RuntimeDirectory={{ base_dir['pid'] }}/{{ bin_name['consul'] }}
-RuntimeDirectoryMode=0755
+PermissionsStartOnly=true
+ExecStartPre=-/bin/mkdir -p {{ base_dir['pid'] }}/{{ bin_name['consul'] }}
+ExecStartPre=/bin/chown -R {{ bin_name['consul'] }}:{{ bin_name['consul'] }} {{ base_dir['pid'] }}/{{ bin_name['consul'] }}
 PidFile={{ base_dir['binaries'] }}/{{ bin_name['consul'] }}/{{ bin_name['consul'] }}.pid
 KillMode=process
 KillSignal=SIGINT
