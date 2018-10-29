@@ -1,0 +1,14 @@
+---
+
+- name: consul | create folders
+  become: true
+  file:
+    dest: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  loop:
+  - "{{ base_dir['binaries'] }}
+  - "{{ base_dir['packages'] }}/consul/{{ consul['version'] }}"
+  - "{{ base_dir['systemd'] }}/consul.d"

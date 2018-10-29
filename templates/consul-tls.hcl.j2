@@ -1,6 +1,6 @@
 acl {
   enabled        = {{ acl['enabled'] | default(true) | bool | lower }}
-  acl_datacenter = "{{ acl:['datacenter'] | default('dc1') }}"
+  acl_datacenter = "{{ acl['datacenter'] | default('dc1') }}"
   default_policy = "deny"
   down_policy    = "extend-cache"
 }

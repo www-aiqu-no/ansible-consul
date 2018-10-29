@@ -1,4 +1,0 @@
-# Generate key: consul keygen
-{% if encryption['enabled'] %}
-encrypt = "{{ encryption['key'] | default() | mandatory }}"
-{% endif %}

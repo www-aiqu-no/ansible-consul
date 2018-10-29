@@ -1,0 +1,2 @@
+server           = {{ consul['server'] | bool | lower }}
+bootstrap_expect = {{ consul['bootstrap']['expect'] | int }}

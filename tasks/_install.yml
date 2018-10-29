@@ -1,0 +1,19 @@
+---
+
+- name: consul | extract binary
+  become: true
+  unarchive:
+    src: "{{ base_dir['downloads'] }}/{{ package_name_consul }}.zip"
+    dest: "{{ base_dir['packages'] }}/consul/{{ consul['version'] }}"
+    owner: consul
+    group: consul
+    remote_src: yes
+
+- name: consul | symlink binary
+  become: true
+  file:
+    src: "{{ base_dir['packages'] }}/consul/{{ consul['version'] }}/consul"
+    dest: "{{ base_dir['binaries'] }}/consul"
+    owner: consul
+    group: consul
+    state: link

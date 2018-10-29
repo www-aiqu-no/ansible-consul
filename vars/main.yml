@@ -4,8 +4,6 @@
 # ============================================
 
 hashicorp_base_url: "https://releases.hashicorp.com"
-bin_name:
-  consul: "consul"
 base_architecture_map:
   amd64: "amd64"
   x86_64: "amd64"
@@ -13,7 +11,7 @@ base_architecture_map:
 # Host-specific
 # ============================================
 
-host_architecture: "{{ base_architecture_map[ansible_architecture] | lower }}" # requires 'gather_facts' on hosts
-package_name_consul: "{{ bin_name['consul'] }}_{{ consul['version'] }}_{{ ansible_system | lower }}_{{ host_architecture | lower }}"
-package_url_consul:  "{{ hashicorp_base_url }}/{{ bin_name['consul'] }}/{{ consul['version'] }}/{{ package_name_consul }}.zip"
-checksum_url_consul: "{{ hashicorp_base_url }}/{{ bin_name['consul'] }}/{{ consul['version'] }}/{{ bin_name['consul'] }}_{{ consul['version'] }}_SHA256SUMS"
+host_architecture: "{{ base_architecture_map[ansible_architecture] | lower }}"
+package_name_consul: "consul_{{ consul['version'] }}_{{ ansible_system | lower }}_{{ host_architecture | lower }}"
+package_url_consul:  "{{ hashicorp_base_url }}/consul/{{ consul['version'] }}/{{ package_name_consul }}.zip"
+checksum_url_consul: "{{ hashicorp_base_url }}/consul/{{ consul['version'] }}/consul_{{ consul['version'] }}_SHA256SUMS"

@@ -1,43 +1,12 @@
 ---
-# tasks file for roles/nomad
 
-- name: only run if os is supported
-  block:
+- include: _assert.yml
 
-  - include_vars: coreos.yml
-    when: ansible_service_mgr == "systemd"
-    #when: ansible_os_family == "Container Linux by CoreOS"
+- include_vars: coreos.yml
 
-  - include: consul-download.yml
-    tags: download
-
-  - include: consul-install.yml
-    tags: install
-
-  - block:
-    #tags: configure
-
-    - include: consul-cfg_user.yml
-      tags: required
-
-    - include: consul-cfg_systemd.yml
-      tags: required
-
-    - include: consul-cfg_server.yml
-      tags: optional
-      when: consul['server']
-
-    - include: consul-cfg_encryption.yml
-      tags: optional
-      when: encryption['enabled']
-
-    - include: consul-cfg_acl.yml
-      tags: optional
-      when: acl['enabled']
-
-    - include: consul-cfg_tls.yml
-      tags: optional
-      when: tls['enabled']
-
-  when: ansible_service_mgr == "systemd"
-  #when: ansible_os_family == "Container Linux by CoreOS"
+- include: _download.yml
+- include: _folders.yml
+- include: _user.yml
+- include: _install.yml
+- include: _configure.yml
+- include: _initialize.yml

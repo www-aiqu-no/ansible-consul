@@ -1,0 +1,97 @@
+---
+
+- name: consul | template base configuration files
+  become: true
+  notify:
+  - reload_systemd_daemon
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ base_dir['configs'] }}/consul.d/{{ item }}"
+    owner: "consul"
+    group: "consul"
+    mode: 0644
+  loop:
+    - consul-base.hcl
+
+- name: consul | template encryption configuration files
+  become: true
+  notify:
+  - reload_systemd_daemon
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ base_dir['configs'] }}/consul.d/{{ item }}"
+    owner: "consul"
+    group: "consul"
+    mode: 0644
+  loop:
+    - consul-encrypt.hcl
+  when: encryption['enabled']
+
+- name: consul | template server configuration files
+  become: true
+  notify:
+  - reload_systemd_daemon
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ base_dir['configs'] }}/consul.d/{{ item }}"
+    owner: "consul"
+    group: "consul"
+    mode: 0644
+  loop:
+    - consul-server.hcl
+    - consul-autopilot.hcl
+  when: consul['server']
+
+- name: consul | template acl configuration files
+  become: true
+  notify:
+  - reload_systemd_daemon
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ base_dir['configs'] }}/consul.d/{{ item }}"
+    owner: "consul"
+    group: "consul"
+    mode: 0644
+  loop:
+    - consul-acl.json
+  when: acl['enabled']
+
+- name: consul | template tls configuration files
+  become: true
+  notify:
+  - reload_systemd_daemon
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ base_dir['configs'] }}/consul.d/{{ item }}"
+    owner: "consul"
+    group: "consul"
+    mode: 0644
+  loop:
+    - consul-tls.hcl
+  when: tls['enabled']
+
+- name: consul | template unit definition
+  become: true
+  notify:
+  - restart_unit_consul
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ base_dir['systemd'] }}/{{ item }}"
+    owner: "root"
+    group: "root"
+    mode: 0755
+  loop:
+    - consul.service
+
+- name: consul | template unit definition override(s)
+  become: true
+  notify:
+  - restart_unit_consul
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ base_dir['systemd'] }}/consul.d/{{ item }}"
+    owner: "root"
+    group: "root"
+    mode: 0755
+  loop:
+    - consul.conf

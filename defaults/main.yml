@@ -1,4 +1,5 @@
 ---
+---
 #  Required Inputs
 # ============================================
 
@@ -8,13 +9,12 @@ consul:
   domain: "contoso"
   server: true
   ui: true
-
-bootstrap:
-  expect: "3"
-  addresses:
-  - "10.0.0.1"
-  - "10.0.0.2"
-  - "10.0.0.3"
+  bootstrap:
+    expect: "3"
+    addresses:
+      - "10.0.0.1"
+      - "10.0.0.2"
+      - "10.0.0.3"
 
 # Optional (recommended) Inputs
 # ============================================

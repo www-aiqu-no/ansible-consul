@@ -6,9 +6,7 @@
     path: "{{ base_dir['downloads'] }}/{{ package_name_consul }}.zip"
   register: package_status_consul
 
-- name: consul | download package
-  block:
-
+- block:
   - name: consul | get package checksum
     run_once: true
     become: false
