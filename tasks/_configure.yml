@@ -89,7 +89,7 @@
   - restart_unit_consul
   template:
     src: "{{ item }}.j2"
-    dest: "{{ base_dir['systemd'] }}/consul.d/{{ item }}"
+    dest: "{{ base_dir['systemd'] }}/consul.service.d/{{ item }}"
     owner: "root"
     group: "root"
     mode: 0644
