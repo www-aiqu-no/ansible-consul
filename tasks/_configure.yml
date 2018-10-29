@@ -79,7 +79,7 @@
     dest: "{{ base_dir['systemd'] }}/{{ item }}"
     owner: "root"
     group: "root"
-    mode: 0755
+    mode: 0644
   loop:
     - consul.service
 
@@ -92,6 +92,6 @@
     dest: "{{ base_dir['systemd'] }}/consul.d/{{ item }}"
     owner: "root"
     group: "root"
-    mode: 0755
+    mode: 0644
   loop:
     - directories.conf

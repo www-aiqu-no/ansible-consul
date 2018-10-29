@@ -20,7 +20,7 @@
     state: directory
     owner: consul
     group: consul
-    mode: 0644
+    mode: 0755
   loop:
   - "{{ base_dir['data'] }}/consul"
   - "{{ base_dir['logs'] }}/consul"
