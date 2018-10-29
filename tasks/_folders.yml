@@ -1,6 +1,6 @@
 ---
 
-- name: consul | create folders
+- name: consul | create root folders
   become: true
   file:
     dest: "{{ item }}"
@@ -9,6 +9,19 @@
     group: root
     mode: 0755
   loop:
-  - "{{ base_dir['binaries'] }}
+  - "{{ base_dir['binaries'] }}"
   - "{{ base_dir['packages'] }}/consul/{{ consul['version'] }}"
   - "{{ base_dir['systemd'] }}/consul.d"
+
+- name: consul | create application folders
+  become: true
+  file:
+    dest: "{{ item }}"
+    state: directory
+    owner: consul
+    group: consul
+    mode: 0644
+  loop:
+  - "{{ base_dir['data'] }}/consul"
+  - "{{ base_dir['logs'] }}/consul"
+  - "{{ base_dir['runtime'] }}/consul"
