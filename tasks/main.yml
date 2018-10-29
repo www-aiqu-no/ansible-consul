@@ -5,8 +5,8 @@
 - include_vars: _coreos.yml
 
 - include: _download.yml
-- include: _folders.yml
 - include: _user.yml
+- include: _folders.yml
 - include: _install.yml
 - include: _configure.yml
 - include: _initialize.yml
