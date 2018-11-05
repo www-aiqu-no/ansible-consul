@@ -11,7 +11,7 @@
   loop:
   - "{{ base_dir['binaries'] }}"
   - "{{ base_dir['packages'] }}/consul/{{ consul['version'] }}"
-  - "{{ base_dir['systemd'] }}/consul.d"
+  - "{{ base_dir['systemd'] }}/consul.service.d"
 
 - name: consul | create application folders
   become: true
