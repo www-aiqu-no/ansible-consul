@@ -6,8 +6,8 @@ consul:
   version: "1.3.0"
   datacenter: "dc1"
   domain: "contoso"
-  server: true
-  ui: true
+  server: false
+  ui: false
   bootstrap:
     expect: "3"
     addresses:
