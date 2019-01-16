@@ -9,4 +9,4 @@ base_dir:
   downloads: '/tmp'
   data: '/var/lib'
   logs: '/var/log'
-  runtime: 'var/run'
+  runtime: '/var/run'
