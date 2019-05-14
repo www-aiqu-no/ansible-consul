@@ -12,7 +12,7 @@
 - name: consul | symlink binary
   become: true
   notify:
-  - reload_systemd_daemon
+  - restart_unit_consul
   file:
     src: "{{ base_dir['packages'] }}/consul/{{ consul['version'] }}/consul"
     dest: "{{ base_dir['binaries'] }}/consul"
