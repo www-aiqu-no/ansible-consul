@@ -1,7 +1,19 @@
 ---
 
-- name: Check  compatibility
+- name: Fail | OS unsupported
   fail:
     msg: "{{ ansible_distribution }} is not currently supported by this role."
   when:
     - ansible_distribution not in ['Container Linux by CoreOS']
+
+# ------------------------------------------------------------------------------
+
+- name: Check | check directory
+  stat:
+    path: "{{ base_dir['packages'] }}/consul/{{ consul['version'] }}"
+  register: status_installed
+
+- name: Fail | Version already installed
+  fail:
+    msg: "Consul version {{ consul['version'] }} is already installed"
+  when: package_status_consul['stat']['exists']

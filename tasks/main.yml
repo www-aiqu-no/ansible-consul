@@ -1,9 +1,6 @@
 ---
-
-- include: _assert.yml
-
 - include_vars: _coreos.yml
-
+- include: _assert.yml
 - include: _download.yml
 - include: _user.yml
 - include: _folders.yml
