@@ -1,9 +1,22 @@
 ---
 #  Required Inputs
-# ============================================
+# ==============================================================================
+
+# TODO: Use single variables to better integrate with ansible tower templates
+#consul_version: "1.5.0"
+#consul_datacenter: "dc1"
+#consul_domain: "contoso"
+#consul_server: false
+#consul_ui: false
+#consul_bootstrap:
+#  expect: "3"
+#  addresses:
+#  - "10.0.0.1"
+#  - "10.0.0.2"
+#  - "10.0.0.3"
 
 consul:
-  version: "1.4.0"
+  version: "1.5.0"
   datacenter: "dc1"
   domain: "contoso"
   server: false
@@ -16,7 +29,7 @@ consul:
       - "10.0.0.3"
 
 # Optional (recommended) Inputs
-# ============================================
+# ==============================================================================
 
 ##
 #  Generate encryption key
