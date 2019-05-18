@@ -1,5 +1,5 @@
 ---
-## Ubuntu-specific parameters
+## Defaults
 os_dir_packages: /opt
 os_dir_binaries: /opt/bin
 os_dir_config: /etc

@@ -10,13 +10,14 @@
 #  Include variables based on operating system
 # ==============================================================================
 
-- name: include variables based on operating system
-  include_vars: "{{ lookup('first_found',possible_files) }}"
-  vars:
-    possible_files:
-    - "{{ ansible_distribution | lower }}.yml"
-    - "{{ ansible_os_family | lower }}.yml"
-    - "coreos.yaml"
+#- name: include variables based on operating system
+#  include_vars: "{{ lookup('first_found',possible_files) }}"
+#  vars:
+#    possible_files:
+#    - "{{ ansible_distribution | lower }}.yml"
+#    - "{{ ansible_os_family | lower }}.yml"
+#    - default.yml
+- include_vars: default.yml
 
 # ==============================================================================
 #  Install only if requested version doesn't already exist

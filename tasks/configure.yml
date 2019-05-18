@@ -19,7 +19,7 @@
   - reload_systemd_daemon
   template:
     src: "{{ item }}.j2"
-    dest: "{{ os_dir_configs }}/consul.d/{{ item }}"
+    dest: "{{ os_dir_config }}/consul.d/{{ item }}"
     owner: "consul"
     group: "consul"
     mode: 0644
