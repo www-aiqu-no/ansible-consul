@@ -3,8 +3,8 @@
 - name: consul | extract binary
   become: true
   unarchive:
-    src: "{{ base_dir['downloads'] }}/{{ package_name_consul }}.zip"
-    dest: "{{ base_dir['packages'] }}/consul/{{ consul['version'] }}"
+    src: "{{ os_dir_temp }}/{{ package_name_consul }}.zip"
+    dest: "{{ os_dir_packages }}/consul/{{ consul_version }}"
     owner: consul
     group: consul
     remote_src: yes
@@ -14,8 +14,8 @@
   notify:
   - restart_unit_consul
   file:
-    src: "{{ base_dir['packages'] }}/consul/{{ consul['version'] }}/consul"
-    dest: "{{ base_dir['binaries'] }}/consul"
+    src: "{{ os_dir_packages }}/consul/{{ consul_version }}/consul"
+    dest: "{{ os_dir_binaries }}/consul"
     owner: consul
     group: consul
     state: link

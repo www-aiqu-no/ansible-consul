@@ -3,17 +3,16 @@
 # ==============================================================================
 
 # TODO: Use single variables to better integrate with ansible tower templates
-#consul_version: "1.5.0"
-#consul_datacenter: "dc1"
-#consul_domain: "contoso"
-#consul_server: false
-#consul_ui: false
-#consul_bootstrap:
-#  expect: "3"
-#  addresses:
-#  - "10.0.0.1"
-#  - "10.0.0.2"
-#  - "10.0.0.3"
+consul_version: "1.5.0"
+consul_datacenter: "dc1"
+consul_domain: "consul."
+consul_server: false
+consul_ui: false
+consul_bootstrap_expect: "3"
+consul_bootstrap_addresses:
+- "10.0.0.1"
+- "10.0.0.2"
+- "10.0.0.3"
 
 consul:
   version: "1.5.0"
@@ -24,9 +23,9 @@ consul:
   bootstrap:
     expect: "3"
     addresses:
-      - "10.0.0.1"
-      - "10.0.0.2"
-      - "10.0.0.3"
+    - "10.0.0.1"
+    - "10.0.0.2"
+    - "10.0.0.3"
 
 # Optional (recommended) Inputs
 # ==============================================================================
@@ -35,6 +34,9 @@ consul:
 #  Generate encryption key
 #    - local agent: consul keygen
 #    - docker: docker run -it --rm consul:latest consul keygen
+encryption_enabled: false
+encryption_key: "ReplaceMeDummy"
+
 encryption:
   enabled: false
   key: "SomeSecretKey"
@@ -45,6 +47,11 @@ encryption:
 #    - docker: docker run -it --rm alpine:latest ash -c \
 #        "apk --no-cache add util-linux; uuidgen" \
 #        | awk END{print}
+acl_enabled: false
+acl_datacenter: "dc1"
+acl_master_token: "ReplaceMeDummy"
+acl_agent_token: "GenerateFromMaster"
+
 acl:
   enabled: false
   datacenter: "dc1"
@@ -53,5 +60,7 @@ acl:
 
 ##
 # Not configured
+tls_enabled: false
+
 tls:
   enabled: false

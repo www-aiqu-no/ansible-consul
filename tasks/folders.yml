@@ -9,9 +9,9 @@
     group: root
     mode: 0755
   loop:
-  - "{{ base_dir['binaries'] }}"
-  - "{{ base_dir['packages'] }}/consul/{{ consul['version'] }}"
-  - "{{ base_dir['systemd'] }}/consul.service.d"
+  - "{{ os_dir_binaries }}"
+  - "{{ os_dir_packages }}/consul/{{ consul_version }}"
+  - "{{ os_dir_systemd }}/consul.service.d"
 
 - name: consul | create application folders
   become: true
@@ -22,6 +22,6 @@
     group: consul
     mode: 0755
   loop:
-  - "{{ base_dir['data'] }}/consul"
-  - "{{ base_dir['logs'] }}/consul"
-  - "{{ base_dir['runtime'] }}/consul"
+  - "{{ os_dir_data }}/consul"
+  - "{{ os_dir_logs }}/consul"
+  - "{{ os_dir_runtime }}/consul"

@@ -10,3 +10,12 @@ base_dir:
   data: '/var/lib'
   logs: '/var/log'
   runtime: '/var/run'
+
+os_dir_packages: /opt
+os_dir_binaries: /opt/bin
+os_dir_config: /etc
+os_dir_systemd: /etc/systemd/system
+os_dir_temp: /tmp
+os_dir_data: /var/lib
+os_dir_logs: /var/log
+os_dir_runtime: /var/run

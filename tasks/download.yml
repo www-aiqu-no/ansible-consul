@@ -3,7 +3,7 @@
 - name: consul | check if file is downloaded
   become: false
   stat:
-    path: "{{ base_dir['downloads'] }}/{{ package_name_consul }}.zip"
+    path: "{{ os_dir_temp }}/{{ package_name_consul }}.zip"
   register: package_status_consul
 
 - block:
@@ -12,7 +12,7 @@
     become: false
     get_url:
       url: "{{ package_url_consul }}"
-      dest: "{{ base_dir['downloads'] }}"
+      dest: "{{ os_dir_temp }}"
       checksum: "sha256:{{ checksum_url_consul }}"
       validate_certs: false
     register: download_status_consul

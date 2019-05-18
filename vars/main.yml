@@ -2,7 +2,9 @@
 
 # Constants
 # ============================================
-
+assert_os_supported:
+- Container Linux by CoreOS
+- Ubuntu
 hashicorp_base_url: "https://releases.hashicorp.com"
 base_architecture_map:
   amd64: "amd64"
@@ -10,8 +12,7 @@ base_architecture_map:
 
 # Host-specific
 # ============================================
-
 host_architecture: "{{ base_architecture_map[ansible_architecture] | lower }}"
-package_name_consul: "consul_{{ consul['version'] }}_{{ ansible_system | lower }}_{{ host_architecture | lower }}"
-package_url_consul:  "{{ hashicorp_base_url }}/consul/{{ consul['version'] }}/{{ package_name_consul }}.zip"
-checksum_url_consul: "{{ hashicorp_base_url }}/consul/{{ consul['version'] }}/consul_{{ consul['version'] }}_SHA256SUMS"
+package_name_consul: "consul_{{ consul_version }}_{{ ansible_system | lower }}_{{ host_architecture | lower }}"
+package_url_consul:  "{{ hashicorp_base_url }}/consul/{{ consul_version }}/{{ package_name_consul }}.zip"
+checksum_url_consul: "{{ hashicorp_base_url }}/consul/{{ consul_version }}/consul_{{ consul_version }}_SHA256SUMS"
