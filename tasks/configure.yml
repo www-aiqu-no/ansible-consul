@@ -40,6 +40,7 @@
   loop:
   - consul-server.hcl
   - consul-autopilot.hcl
+  - consul-connect.hcl
   when: consul_server
 
 - name: consul | template acl configuration files
