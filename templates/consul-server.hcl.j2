@@ -1,5 +1,2 @@
 server           = {{ consul_server | default(false) | bool | lower }}
 bootstrap_expect = {{ consul_bootstrap_expect | default(1) | int }}
-connect {
-  enabled = {{ consul_connect_enabled | default(false) | bool | lower }}
-}

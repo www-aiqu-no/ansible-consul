@@ -7,7 +7,6 @@ consul_version: "1.5.0"
 consul_datacenter: "dc1"
 consul_domain: "consul."
 consul_server: false
-consul_connect_enabled: false
 consul_ui: false
 consul_bootstrap_expect: "3"
 consul_bootstrap_addresses:
@@ -34,6 +33,14 @@ acl_enabled: false
 acl_datacenter: "dc1"
 acl_master_token: "ReplaceMeDummy"
 acl_agent_token: "GenerateFromMaster"
+
+# Consul Connect
+consul_connect_enabled: false
+consul_connect_vault_enabled: false
+consul_connect_vault_address: "http://127.0.0.1:8200"
+consul_connect_vault_token: "secret"
+consul_connect_vault_pki_root: "pki-connect-root"
+consul_connect_vault_pki_intermediate: "pki-connect-intermediate"
 
 ##
 # TODO: tls
