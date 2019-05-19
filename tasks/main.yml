@@ -23,7 +23,7 @@
 #  Install only if requested version doesn't already exist
 # ==============================================================================
 
-#- include: assert_version_installed.yml
+#- include: assert_installed.yml
 
 - name: Consul | check if version already installed
   stat:
