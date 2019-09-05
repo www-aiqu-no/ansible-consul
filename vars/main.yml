@@ -2,8 +2,8 @@
 # Constants
 # ============================================
 assert_os_supported:
-- Container Linux by CoreOS
-- Ubuntu
+  - Container Linux by CoreOS
+  - VMware Photon OS
 hashicorp_base_url: "https://releases.hashicorp.com"
 base_architecture_map:
   amd64: "amd64"
