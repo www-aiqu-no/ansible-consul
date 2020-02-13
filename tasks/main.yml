@@ -31,10 +31,10 @@
   register: version_exists
 
 - block:
-  - include: download.yml
-  - include: user.yml
-  - include: folders.yml
-  - include: install.yml
+    - include: download.yml
+    - include: user.yml
+    - include: folders.yml
+    - include: install.yml
   when: not version_exists['stat']['exists']
 
 # ==============================================================================

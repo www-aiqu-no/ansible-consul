@@ -4,6 +4,6 @@
   fail:
     msg: "{{ ansible_distribution }} is not currently supported by this role"
   when:
-  - ansible_distribution not in assert_os_supported
+    - ansible_distribution not in assert_os_supported
 
 # ------------------------------------------------------------------------------

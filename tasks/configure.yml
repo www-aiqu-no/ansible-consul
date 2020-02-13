@@ -3,7 +3,7 @@
 - name: consul | template base configuration files
   become: true
   notify:
-  - reload_systemd_daemon
+    - reload_systemd_daemon
   template:
     src: "{{ item }}.j2"
     dest: "{{ os_dir_config }}/consul.d/{{ item }}"
@@ -11,12 +11,12 @@
     group: "consul"
     mode: 0644
   loop:
-  - consul-base.hcl
+    - consul-base.hcl
 
 - name: consul | template encryption configuration files
   become: true
   notify:
-  - reload_systemd_daemon
+    - reload_systemd_daemon
   template:
     src: "{{ item }}.j2"
     dest: "{{ os_dir_config }}/consul.d/{{ item }}"
@@ -24,13 +24,13 @@
     group: "consul"
     mode: 0644
   loop:
-  - consul-encrypt.hcl
+    - consul-encrypt.hcl
   when: encryption_enabled
 
 - name: consul | template server configuration files
   become: true
   notify:
-  - reload_systemd_daemon
+    - reload_systemd_daemon
   template:
     src: "{{ item }}.j2"
     dest: "{{ os_dir_config }}/consul.d/{{ item }}"
@@ -38,15 +38,15 @@
     group: "consul"
     mode: 0644
   loop:
-  - consul-server.hcl
-  - consul-autopilot.hcl
-  - consul-connect.hcl
+    - consul-server.hcl
+    - consul-autopilot.hcl
+    - consul-connect.hcl
   when: consul_server
 
 - name: consul | template acl configuration files
   become: true
   notify:
-  - reload_systemd_daemon
+    - reload_systemd_daemon
   template:
     src: "{{ item }}.j2"
     dest: "{{ os_dir_config }}/consul.d/{{ item }}"
@@ -54,13 +54,13 @@
     group: "consul"
     mode: 0644
   loop:
-  - consul-acl.json
+    - consul-acl.json
   when: acl_enabled
 
 - name: consul | template tls configuration files
   become: true
   notify:
-  - reload_systemd_daemon
+    - reload_systemd_daemon
   template:
     src: "{{ item }}.j2"
     dest: "{{ os_dir_config }}/consul.d/{{ item }}"
@@ -68,13 +68,13 @@
     group: "consul"
     mode: 0644
   loop:
-  - consul-tls.hcl
+    - consul-tls.hcl
   when: tls_enabled
 
 - name: consul | template unit definition
   become: true
   notify:
-  - restart_unit_consul
+    - restart_unit_consul
   template:
     src: "{{ item }}.j2"
     dest: "{{ os_dir_systemd }}/{{ item }}"
@@ -82,12 +82,12 @@
     group: "root"
     mode: 0644
   loop:
-  - consul.service
+    - consul.service
 
 - name: consul | template unit definition override(s)
   become: true
   notify:
-  - restart_unit_consul
+    - restart_unit_consul
   template:
     src: "{{ item }}.j2"
     dest: "{{ os_dir_systemd }}/consul.service.d/{{ item }}"
@@ -95,4 +95,4 @@
     group: "root"
     mode: 0644
   loop:
-  - directories.conf
+    - directories.conf
