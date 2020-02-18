@@ -1,0 +1,28 @@
+---
+# ===============================================================================
+#  Application Settings
+#  Redefine these variables to configure application deployment
+# ===============================================================================
+version: "1.7.0"
+
+# Reinstall if already installed
+force_install: false
+
+# See https://www.consul.io/docs/agent/options.html
+# Add custom settings to override default application settings
+config_overrides: {}
+#  Example: client_addr: "0.0.0.0"
+
+# See http://www.pathname.com/fhs/pub/
+# Add custom settings to override default path settings
+path_overrides: {}
+
+# ===============================================================================
+#  Extra settings
+# ===============================================================================
+configure_dnsmasq: false
+dnsmasq_overrides: {}
+#  Example: recursors: ["1.1.1.1", "1.0.0.1"]
+
+configure_firewalld: false
+configure_selinux: false
