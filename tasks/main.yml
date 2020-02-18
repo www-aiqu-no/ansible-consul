@@ -12,7 +12,6 @@
   package:
     name:
       - unzip
-      - iproute
     state: present
 
 - name: Gather facts for populating default values
