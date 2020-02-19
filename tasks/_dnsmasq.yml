@@ -1,0 +1,47 @@
+---
+
+- name: dnsmasq | Install package
+  become: true
+  package:
+    name: dnsmasq
+    state: present
+
+- name: dnsmasq | Check if folder exist
+  stat:
+    path: "{{ item }}"
+  register: folder_status_dnsmasq
+  loop:
+    - "{{ path.settings_dnsmasq }}"
+
+- name: dnsmasq | Create folders
+  become: true
+  file:
+    dest: "{{ item.item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when: not item.stat.exists | bool
+  loop: "{{ folder_status_dnsmasq.results }}"
+
+- name: dnsmasq | Manage configuration
+  become: true
+  notify:
+    - reload_daemon
+  template:
+    dest: "{{ path.settings_dnsmasq }}/{{ item }}"
+    src: "{{ item }}.j2"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  loop:
+    - dnsmasq
+
+- name: dnsmasq | Start and enable unit
+  become: true
+  notify:
+  systemd:
+    name: "dnsmasq"
+    masked: no
+    enabled: yes
+    state: started

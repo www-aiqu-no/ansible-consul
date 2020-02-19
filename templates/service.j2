@@ -1,0 +1,24 @@
+################################################################################
+# {{ ansible_managed }}
+################################################################################
+[Unit]
+Description="HashiCorp Consul"
+Documentation=https://consul.io/
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+ExecStart={{ path.binaries }}/{{ application }} agent -config-dir={{ path.settings }}/{{ application }}.d/
+ExecReload={{ path.binaries }}/{{ application }} reload
+KillMode=process
+KillSignal=SIGINT
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+################################################################################
+# {{ ansible_managed }}
+################################################################################

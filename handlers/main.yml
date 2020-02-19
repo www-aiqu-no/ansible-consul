@@ -1,12 +1,27 @@
 ---
+# handlers file for consul
 
-- name: reload_systemd_daemon
+- name: reload_daemon
   become: true
   systemd:
     daemon_reload: yes
 
-- name: restart_unit_consul
+- name: restart_unit
   become: true
   systemd:
-    name: consul
+    name: "{{ application }}"
+    state: restarted
+
+# Optional settings
+
+- name: restart_dnsmasq
+  become: true
+  systemd:
+    name: dnsmasq
+    state: restarted
+
+- name: restart_firewalld
+  become: true
+  systemd:
+    name: firewalld
     state: restarted

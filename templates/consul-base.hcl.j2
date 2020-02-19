@@ -1,8 +1,0 @@
-node_name      = "{{ ansible_hostname }}"
-advertise_addr = "{{ ansible_default_ipv4['address'] }}"
-client_addr    = "0.0.0.0"
-datacenter     = "{{ consul_datacenter | default('dc1') }}"
-domain         = "{{ consul_domain | default('consul.') }}"
-data_dir       = "{{ os_dir_data }}/consul/data"
-retry_join     = {{ consul_bootstrap_addresses | default('0.0.0.0') | to_json }}
-ui             = {{ consul_ui | default(true) | bool | lower }}

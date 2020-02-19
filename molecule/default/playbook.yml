@@ -1,0 +1,32 @@
+---
+
+- name: instance
+  hosts: all
+  gather_facts: false
+
+  pre_tasks:
+    - name: Ansible and docker pre-requirements
+      become: true
+      package:
+        name:
+          - iproute
+        state: present
+
+  tasks:
+
+    - include_role:
+        name: consul
+      vars:
+        config_overrides:
+          client_addr: "0.0.0.0"
+          server: true
+          bootstrap_expect: 1
+          encrypt: pi733UFyKoQ5REDKd6LefbRuZbEscPkmJfdOmyhbS50=
+          performance:
+            raft_multiplier: 10
+          ports:
+            grpc: 8502
+          acl:
+            enabled: true
+            default_policy: allow
+        configure_dnsmasq: true

@@ -1,0 +1,50 @@
+################################################################################
+# {{ ansible_managed }}
+################################################################################
+
+# ------------------------------------------------------------------------------
+# Description: Enable forward lookup of the 'consul' domain:
+# Location: /etc/dnsmasq.d
+# References:
+#   - https://learn.hashicorp.com/consul/security-networking/forwarding#dnsmasq-setup
+#   - http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
+# ------------------------------------------------------------------------------
+# Enable forward lookup of the consul-domain:
+server=/{{ dnsmasq.domain }}/{{ dnsmasq.address }}#{{ dnsmasq.port }}
+
+# Don't read /etc/resolv.conf. Get upstream servers only from the command
+# line or the dnsmasq configuration file (see the "server" directive below).
+no-resolv
+{% if dnsmasq.recursors is defined %}
+{% for recursor in dnsmasq.recursors %}
+server={{ recursor }}
+{% endfor %}
+{% else %}
+# No recursors defined
+{% endif %}
+
+# Don't poll /etc/resolv.conf for changes.
+no-poll
+
+# Set the size of dnsmasq's cache. The default is 150 names. Setting the
+# cache size to zero disables caching.
+cache-size={{ dnsmasq.cache_size | int }}
+
+# Uncomment and modify as appropriate to enable reverse DNS lookups for
+# common netblocks found in RFC 1918, 5735, and 6598:
+#rev-server=0.0.0.0/8,127.0.0.1#8600
+#rev-server=10.0.0.0/8,127.0.0.1#8600
+#rev-server=100.64.0.0/10,127.0.0.1#8600
+#rev-server=127.0.0.1/8,127.0.0.1#8600
+#rev-server=169.254.0.0/16,127.0.0.1#8600
+#rev-server=172.16.0.0/12,127.0.0.1#8600
+#rev-server=192.168.0.0/16,127.0.0.1#8600
+#rev-server=224.0.0.0/4,127.0.0.1#8600
+#rev-server=240.0.0.0/4,127.0.0.1#8600
+
+# Accept DNS queries only from hosts whose address is on a local subnet.
+#local-service
+
+################################################################################
+# {{ ansible_managed }}
+################################################################################

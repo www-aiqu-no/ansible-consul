@@ -1,47 +1,28 @@
 ---
-# ==============================================================================
-#  Required Inputs
-# ==============================================================================
+# ===============================================================================
+#  Application Settings
+#  Redefine these variables to configure application deployment
+# ===============================================================================
+version: "1.7.0"
 
-consul_version: "1.6.1"
-consul_datacenter: "dc1"
-consul_domain: "consul."
-consul_server: false
-consul_ui: false
-consul_bootstrap_expect: "3"
-consul_bootstrap_addresses:
-  - "10.0.0.1"
-  - "10.0.0.2"
-  - "10.0.0.3"
+# Reinstall if already installed
+force_install: false
 
-# ==============================================================================
-# Optional (recommended) Inputs
-# ==============================================================================
+# See https://www.consul.io/docs/agent/options.html
+# Add custom settings to override default application settings
+config_overrides: {}
+#  Example: client_addr: "0.0.0.0"
 
-#  Generate encryption key
-#    - local agent: consul keygen
-#    - docker: docker run -it --rm consul:latest consul keygen
-encryption_enabled: false
-encryption_key: "ReplaceMeDummy"
+# See http://www.pathname.com/fhs/pub/
+# Add custom settings to override default path settings
+path_overrides: {}
 
-#  Generate ACL Master Token:
-#    - local: uuidgen
-#    - docker: docker run -it --rm alpine:latest ash -c \
-#        "apk --no-cache add util-linux; uuidgen" \
-#        | awk END{print}
-acl_enabled: false
-acl_datacenter: "dc1"
-acl_master_token: "ReplaceMeDummy"
-acl_agent_token: "GenerateFromMaster"
+# ===============================================================================
+#  Extra settings
+# ===============================================================================
+configure_dnsmasq: false
+dnsmasq_overrides: {}
+#  Example: recursors: ["1.1.1.1", "1.0.0.1"]
 
-# Consul Connect
-consul_connect_enabled: false
-consul_connect_vault_enabled: false
-consul_connect_vault_address: "http://127.0.0.1:8200"
-consul_connect_vault_token: "secret"
-consul_connect_vault_pki_root: "pki-connect-root"
-consul_connect_vault_pki_intermediate: "pki-connect-intermediate"
-
-##
-# TODO: tls
-tls_enabled: false
+configure_firewalld: false
+configure_selinux: false
