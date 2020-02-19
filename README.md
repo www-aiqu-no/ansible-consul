@@ -1,5 +1,4 @@
 # Role Name
-https://github.com/Kreditorforeningens-Driftssentral-DA/ansible-role-consul/tree/master/consul/vars
 
 This is a simple ansible role for consul. It does the following tasks:
 - Download and validate consul precompiled binary
@@ -9,23 +8,79 @@ This is a simple ansible role for consul. It does the following tasks:
 
 ## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None
 
 ## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+#### version (default: 1.7.0)
+Sets the version to download & enable
 
+#### force_install (default: false)
+Download & unpack binary even if the defined version already exists
+
+#### config_overrides (default: {})
+Overrides any default settings for the application. These are written to disk on the host. Example:
+```yaml
+config_overrides:
+  client_addr: "0.0.0.0"
+  server: true
+  bootstrap_expect: 1
+  ui: true
+  performance:
+    raft_multiplier: 8
+  ports:
+    grpc: 8502
+  acl:
+    enabled: true
+    default_policy: allow
+```
+
+See [https://www.consul.io/docs/agent/options.html](https://www.consul.io/docs/agent/options.html) for details
+
+#### path_overrides (default: {})
+Default paths to use for files
+
+#### configure_dnsmasq (default: false)
+Enable dnsmasq
+
+#### dnsmasq_overrides (default: {})
+Override default dnsmasq settings
+
+#### configure_firewalld (default: false)
+Add (default) ports to firewalld
+
+#### configure_selinux (default: false)
+Set SELinux to permissive mode
+
+...
 ## Dependencies
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
 
 ## Example Playbook
+Install a single server instance
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+    - hosts: consul
+      gather_facts: false
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+      pre_tasks:
+        - name: Ansible and docker requirements
+          become: true
+          package:
+            name:
+              - iproute
+            state: present
+
+      tasks:
+        - include_role:
+            name: consul
+          vars:
+            config_overrides:
+              client_addr: "0.0.0.0"
+              server: true
+              bootstrap_expect: 1
+              ui: true
+            configure_dnsmasq: true
 
 ## License
 
@@ -33,4 +88,4 @@ MIT
 
 ## Author Information
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+N/A
