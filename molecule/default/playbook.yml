@@ -30,3 +30,6 @@
             enabled: true
             default_policy: allow
         configure_dnsmasq: true
+        dnsmasq_overrides:
+          yum:
+            openresolv: true

@@ -1,7 +1,8 @@
 ---
 
 platforms:
-  - name: instance
+
+  - name: mlc-centos-consul
     image: "${image_name:-centos}:${image_version:-7}"
     command: /usr/sbin/init
     environment:

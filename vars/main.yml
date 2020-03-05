@@ -68,3 +68,5 @@ dnsmasq_defaults:
   cache_size: 65536
   # TODO: Figure out how to use consul recursors? Not needed?
   recursors: []
+  yum:
+    openresolv: false
