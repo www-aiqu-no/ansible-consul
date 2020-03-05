@@ -30,7 +30,7 @@ checksum_url: "{{ hashicorp_releases_url }}/{{ application }}/{{ version }}/{{ a
 config: "{{ config_defaults | combine(config_overrides, recursive=true) }}"
 
 config_defaults:
-  bind_addr: "{{ ansible_default_ipv4.address }}"
+  advertise_addr: "{{ ansible_default_ipv4.address }}"
   node_name: "{{ ansible_hostname }}"
   data_dir: "{{ path.storage }}/{{ application }}/data"
 
