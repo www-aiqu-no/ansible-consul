@@ -61,9 +61,9 @@ path_defaults:
 dnsmasq: "{{ dnsmasq_defaults | combine(dnsmasq_overrides, recursive=true) }}"
 
 dnsmasq_defaults:
-  address: "{{ config.bind_addr | default('127.0.0.1',true) }}"
   domain: "{{ config.domain | default('consul',true) }}"
-  # TODO: Figure out how to use config.ports.dns when it fails on undefined
+  address: "127.0.0.1"
+  # TODO: Figure out how to use config.ports.dns when it fails on 'undefined'
   port: 8600
   cache_size: 65536
   # TODO: Figure out how to use consul recursors? Not needed?

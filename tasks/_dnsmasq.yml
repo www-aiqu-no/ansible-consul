@@ -1,10 +1,15 @@
 ---
 
-- name: dnsmasq | Install package
+- name: dnsmasq | Install packages
   become: true
+  notify:
+    - reload_daemon
   package:
-    name: dnsmasq
+    name: "{{ item }}"
     state: present
+  loop:
+    - dnsmasq
+    - resolvconf
 
 - name: dnsmasq | Check if folder exist
   stat:
@@ -28,6 +33,8 @@
   become: true
   notify:
     - reload_daemon
+    - restart_dnsmasq
+    - restart_resolved
   template:
     dest: "{{ path.settings_dnsmasq }}/{{ item }}"
     src: "{{ item }}.j2"
@@ -40,6 +47,8 @@
 - name: dnsmasq | Start and enable unit
   become: true
   notify:
+    - restart_dnsmasq
+    - restart_resolved
   systemd:
     name: "dnsmasq"
     masked: no
