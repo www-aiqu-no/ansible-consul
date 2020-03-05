@@ -1,10 +1,46 @@
 ---
 
-- name: dnsmasq | Install package
+- name: dnsmasq | Install packages
   become: true
+  notify:
+    - reload_daemon
+    - restart_dnsmasq
   package:
     name: dnsmasq
     state: present
+
+- name: dnsmasq | Install resolvconf (Debian)
+  become: true
+  notify:
+    - reload_daemon
+    - restart_resolved
+  package:
+    name: resolvconf
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: dnsmasq | Install openresolv (RedHat)
+  block:
+
+    - name: openresolv | add repo
+      become: true
+      yum_repository:
+        name: macieks-openresolv-epel-7
+        description: "Openresolv"
+        baseurl: "https://copr.fedorainfracloud.org/coprs/macieks/openresolv/repo/epel-7/macieks-openresolv-epel-7.repo"
+        gpgcheck: false
+        enabled: true
+
+    - name: openresolv | install
+      become: true
+      notify:
+        - reload_daemon
+      package:
+        name: openresolv
+        state: present
+
+  # TODO: Disabled; not finished
+  when: ansible_os_family == 'RedHat' and dnsmasq.yum.openresolv and false
 
 - name: dnsmasq | Check if folder exist
   stat:
@@ -28,6 +64,7 @@
   become: true
   notify:
     - reload_daemon
+    - restart_dnsmasq
   template:
     dest: "{{ path.settings_dnsmasq }}/{{ item }}"
     src: "{{ item }}.j2"
@@ -40,6 +77,7 @@
 - name: dnsmasq | Start and enable unit
   become: true
   notify:
+    - restart_dnsmasq
   systemd:
     name: "dnsmasq"
     masked: no

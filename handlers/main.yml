@@ -12,12 +12,18 @@
     name: "{{ application }}"
     state: restarted
 
-# Optional settings
+# Optional settings handlers
 
 - name: restart_dnsmasq
   become: true
   systemd:
     name: dnsmasq
+    state: restarted
+
+- name: restart_resolved
+  become: true
+  systemd:
+    name: systemd-resolved
     state: restarted
 
 - name: restart_firewalld
